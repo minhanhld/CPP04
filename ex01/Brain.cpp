@@ -6,7 +6,7 @@
 /*   By: mle-duc <mle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 01:11:41 by mle-duc           #+#    #+#             */
-/*   Updated: 2024/01/08 01:38:05 by mle-duc          ###   ########.fr       */
+/*   Updated: 2024/01/19 21:24:45 by mle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Brain::Brain()
 {
-	std::cout << "Brain default construcotr called" << std::endl;
+	std::cout << "Brain default constructor called" << std::endl;
 }
 
 Brain::Brain(const Brain &copy)
