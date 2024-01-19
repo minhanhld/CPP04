@@ -6,7 +6,7 @@
 /*   By: mle-duc <mle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 01:31:23 by mle-duc           #+#    #+#             */
-/*   Updated: 2024/01/19 21:24:21 by mle-duc          ###   ########.fr       */
+/*   Updated: 2024/01/19 21:29:21 by mle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ int main()
 	b->getIdeas();
 	std::cout << red << "delete (b) : " << reset << std::endl;
 	delete(b);
+
+	std::cout << magenta << "Testing if it is possible to instantiate an Animal : " << reset << std::endl;
+	//Animal	animal = new Animal();
 
 	return (0);
 }
