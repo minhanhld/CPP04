@@ -6,7 +6,7 @@
 /*   By: mle-duc <mle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 01:31:23 by mle-duc           #+#    #+#             */
-/*   Updated: 2024/01/08 01:31:52 by mle-duc          ###   ########.fr       */
+/*   Updated: 2024/01/19 21:24:21 by mle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,95 +19,96 @@
 #include <cstdio>
 #include <cstdlib>
 
+const std::string red("\033[0;31m");
+const std::string green("\033[1;32m");
+const std::string yellow("\033[1;33m");
+const std::string cyan("\033[0;36m");
+const std::string magenta("\033[0;35m");
+const std::string reset("\033[0m");
+const int array_size = 10;
+
+void	handle_error(void)
+{
+	perror("Cat allocation failed");
+	std::cerr << "Exiting process now";
+	exit(1);
+}
+
 int main()
 {
-	std::cout << "\033[34mConstructing\033[0m" << std::endl;
-	const Animal	*meta[10];
-	for (int i = 0; i < 10; i++)
+	std::cout << magenta << "Creating the arrays that's half filled with dogs and half filled with cat : " << reset << std::endl;
+	const Animal	*animals[array_size];
+	for (int i = 0; i < array_size / 2; i++)
 	{
-		if (i % 2)
-		{
-			meta[i] = new Cat();
-			if (meta[i] == NULL)
-			{
-				perror("Cat allocation failed");
-				std::cerr << "Exiting process now";
-				exit(1);
-			}
-		}
-		else
-		{
-			meta[i] = new Dog();
-			if (meta[i] == NULL)
-			{
-				perror("Dog allocation failed");
-				std::cerr << "Exiting process now";
-				exit(1);
-			}
-		}
+		animals[i] = new Cat();
+		if (animals[i] == NULL)
+			handle_error();
+	}
+	for (int i = array_size / 2; i < array_size; i++)
+	{
+		animals[i] = new Dog();
+		if (animals[i] == NULL)
+			handle_error();
 	}
 	std::cout << std::endl;
-
-	std::cout << "\033[34mTesting\033[0m" << std::endl;
-	for (int i = 0; i < 10; i++)
+	std::cout << magenta << "Displaying the types of each animal contained in the array : " << reset << std::endl;
+	for (int i = 0; i < array_size; i++)
 	{
-		std::cout << std::endl;
-		std::cout << "Animal _type: " << meta[i]->getType() << std::endl;
-		meta[i]->makeSound();
+		std::cout << red << "animal[" << i << "]->getType() : " << reset << animals[i]->getType() << std::endl;
+		std::cout << red << "animal[" << i << "]->makeSound() : " << reset;
+		animals[i]->makeSound();
 		std::cout << std::endl;
 	}
 	std::cout << std::endl;
 
-	std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-	for (int i = 0; i < 10; i++)
-		delete(meta[i]);
+	std::cout << magenta << "Destroying the array : " << reset << std::endl;
+	for (int i = 0; i < array_size; i++)
+	{
+		delete animals[i];
+		std::cout << std::endl;
+	}
 
-//THIS PART IS FOR TESTING DEEP COPY ↓
+	std::cout << magenta << "Checking if the copies aren't shallow : " << reset << std::endl;
 
-	std::cout << std::endl << std::endl;
-	std::cout << "#### showing that the copy constructor creates a deep copy ####" << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "\033[34mConstructing\033[0m" << std::endl;
+	std::cout << cyan << "Creating Dog \"a\" and Dog \"b\" which is a copy of Dog \"a\" : " << reset << std::endl;
 	Dog *a = new Dog();
-	// Cat *a = new Cat();
 	if (a == NULL)
-	{
-		perror("Allocation failed");
-		std::cerr << "Exiting the process now." << std::endl;
-		exit(1);
-	}
-
-	a->setIdea(0, "I have to sniff it");
-	a->setIdea(1, "I have to pee on it");
-	a->setIdea(2, "I have to sniff it again");
-	a->setIdea(101, "some shit");
+		handle_error();
+	std::cout << std::endl;
+	a->setIdea(0, "Idea 1");
+	a->setIdea(1, "Idea 2");
+	a->setIdea(2, "Idea 3");
+	a->setIdea(200, "Idea out of range");
+	std::cout << std::endl;
 
 	Dog *b = new Dog(*a);
-	// Cat *b = new Cat(*a);
 	if (b == NULL)
-	{
-		perror("Allocation failed");
-		std::cerr << "Exiting the process now." << std::endl;
-		exit(1);
-	}
+		handle_error();
+	std::cout << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "\033[34mTesting a\033[0m" << std::endl;
-	std::cout << "The " << a->getType() << " a has the following ideas: " << std::endl;
+	std::cout << cyan << "Printing the current ideas that are set of both animals (which should be the same for now) : " << reset << std::endl;
+	std::cout << green << "Ideas of Dog \"a\" : " << reset << std::endl;
 	a->getIdeas();
-	std::cout << std::endl;
-
-	std::cout << "\033[34mDeconstructing a\033[0m" << std::endl;
-	delete(a);
-	std::cout << std::endl;
-
-	std::cout << "\033[34mTesting b\033[0m" << std::endl;
-	std::cout << "The " << b->getType() << " b has the following ideas: " << std::endl;
+	std::cout << green << "Ideas of Dog \"b\" : " << reset << std::endl;
 	b->getIdeas();
-	std::cout << std::endl;
 
-	std::cout << "\033[34mDeconstructing b\033[0m" << std::endl;
+	std::cout << cyan << "Modifying the ideas of Dog \"a\" check if Dog \"a\"'s ideas change (they shouldn't) : " << reset << std::endl;
+
+	a->setIdea(0, "New idea 1");
+	a->setIdea(1, "New idea 2");
+	a->setIdea(2, "New idea 3");
+	std::cout << green << "Ideas of Dog \"a\" : " << reset << std::endl;
+	a->getIdeas();
+	std::cout << green << "Ideas of Dog \"b\" : " << reset << std::endl;
+	b->getIdeas();
+
+	std::cout << cyan << "Deleting Dog \"a\", and checking if Dog \"b\" still exists (he should) : " << reset << std::endl;
+	std::cout << red << "delete (a) : " << reset << std::endl;
+	delete(a);
+	std::cout << green << "Ideas of Dog \"b\" : " << reset << std::endl;
+	b->getIdeas();
+	std::cout << red << "delete (b) : " << reset << std::endl;
 	delete(b);
 
 	return (0);

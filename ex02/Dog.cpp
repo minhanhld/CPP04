@@ -6,7 +6,7 @@
 /*   By: mle-duc <mle-duc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 23:22:08 by mle-duc           #+#    #+#             */
-/*   Updated: 2024/01/08 01:37:03 by mle-duc          ###   ########.fr       */
+/*   Updated: 2024/01/19 20:52:53 by mle-duc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ Dog &Dog::operator=(const Dog &src)
 
 void	Dog::makeSound(void) const
 {
-	std::cout << this->getType() << " : Meow." << std::endl;
+	std::cout << this->getType() << " : Woof." << std::endl;
 }
 
 void	Dog::getIdeas(void) const
