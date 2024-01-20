@@ -6,7 +6,7 @@
 #    By: mle-duc <mle-duc@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 16:55:24 by mle-duc           #+#    #+#              #
-#    Updated: 2024/01/19 21:26:41 by mle-duc          ###   ########.fr        #
+#    Updated: 2024/01/20 17:57:40 by mle-duc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS =			main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.
 
 OBJS =			${SRCS:.cpp=.o}
 
-CPPFLAGS =		-Wall -Wextra -Werror -std=c++98 -pedantic
+CPPFLAGS =		-Wall -Wextra -Werror -std=c++98
 
 all: ${NAME}
 
